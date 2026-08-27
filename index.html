@@ -539,10 +539,34 @@
     if(show){ el.classList.add('show'); } else { el.classList.remove('show'); }
   }
 
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuF6-MddtnvXdnkEWvxgZLFKbU8lL3LNBG4K1QwrWE_gMXi6mU-mIEobxExoZm-LE79w/exec';
+
   document.getElementById('hireForm').addEventListener('submit', function(e){
     e.preventDefault();
-    // TODO: wire to Google Apps Script endpoint for Sheet logging
-    document.getElementById('successOverlay').classList.add('show');
+    const form = e.target;
+    const submitBtn = form.querySelector('.submit-btn');
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((value, key) => { payload[key] = value; });
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+      .then(() => {
+        document.getElementById('successOverlay').classList.add('show');
+        form.reset();
+      })
+      .catch(() => {
+        alert('Something went wrong submitting the form. Please try again.');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit application';
+      });
   });
 
   // hero waveform split animation
