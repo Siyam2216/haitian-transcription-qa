@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haitian Kreyòl Transcription + QA — Hiring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171F22;
+    --ink-soft:#2B363A;
+    --paper:#EFEAE0;
+    --paper-dim:#E3DDCF;
+    --blue:#2F5FA8;
+    --blue-deep:#1E3E70;
+    --red:#C0392B;
+    --gold:#DDA83A;
+    --line:rgba(23,31,34,0.14);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:64px 24px 40px;
+    max-width:980px;
+    margin:0 auto;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--blue-deep);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px;height:7px;
+    background:var(--red);
+    border-radius:50%;
+    display:inline-block;
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(34px,5.4vw,58px);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    max-width:14ch;
+  }
+  h1 em{font-style:italic;color:var(--blue-deep);}
+  .lede{
+    font-size:17px;
+    line-height:1.6;
+    max-width:56ch;
+    color:var(--ink-soft);
+    margin:0 0 36px;
+  }
+
+  /* waveform split signature */
+  .signal{
+    width:100%;
+    height:auto;
+    display:block;
+    margin:0 auto;
+  }
+  .signal-caption{
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:10px;
+    padding:0 2px;
+  }
+
+  /* ---------- Flow section ---------- */
+  section{
+    max-width:980px;
+    margin:0 auto;
+    padding:52px 24px;
+    border-top:1px solid var(--line);
+  }
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--blue-deep);
+    margin:0 0 8px;
+  }
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(24px,3vw,32px);
+    margin:0 0 28px;
+  }
+
+  .flow{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .flow-step{
+    background:var(--paper);
+    padding:20px 18px;
+    position:relative;
+  }
+  .flow-step .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--red);
+    display:block;
+    margin-bottom:10px;
+  }
+  .flow-step p{
+    font-size:13.5px;
+    line-height:1.5;
+    margin:0;
+    color:var(--ink-soft);
+  }
+  .flow-step b{color:var(--ink);font-weight:600;}
+
+  @media(max-width:760px){
+    .flow{grid-template-columns:1fr 1fr;}
+  }
+
+  /* ---------- Role card ---------- */
+  .role-card{
+    display:flex;
+    gap:24px;
+    align-items:flex-start;
+    background:var(--ink);
+    color:var(--paper);
+    padding:32px;
+    margin-top:8px;
+  }
+  .role-card .num{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:38px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .role-card h3{
+    font-family:'Archivo',sans-serif;
+    font-weight:700;
+    font-size:19px;
+    margin:0 0 8px;
+  }
+  .role-card p{
+    font-size:14px;
+    line-height:1.6;
+    color:#C9CDCE;
+    margin:0;
+    max-width:60ch;
+  }
+  @media(max-width:600px){.role-card{flex-direction:column;}}
+
+  /* ---------- Form ---------- */
+  .track-toggle{
+    display:inline-flex;
+    border:1.5px solid var(--ink);
+    margin-bottom:36px;
+  }
+  .track-toggle button{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:11px 24px;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    color:var(--ink);
+    transition:background .15s, color .15s;
+  }
+  .track-toggle button.active{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  form{display:grid;gap:22px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .field label .req{color:var(--red);}
+  .field input[type=text],
+  .field input[type=email],
+  .field input[type=tel],
+  .field input[type=number],
+  .field select,
+  .field textarea{
+    width:100%;
+    border:none;
+    border-bottom:1.5px solid var(--ink);
+    background:transparent;
+    padding:10px 2px;
+    font-family:'Archivo',sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    outline:none;
+  }
+  .field textarea{resize:vertical;min-height:70px;border:1.5px solid var(--ink);padding:10px;}
+  .field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--blue);
+  }
+  .field select{appearance:none;background:transparent;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23171F22' stroke-width='1.5' fill='none'/></svg>");
+    background-repeat:no-repeat;background-position:right 4px center;padding-right:20px;}
+
+  .radio-row, .check-row{display:flex;gap:20px;flex-wrap:wrap;margin-top:4px;}
+  .radio-row label, .check-row label{
+    display:flex;align-items:center;gap:7px;
+    font-family:'Archivo',sans-serif;
+    font-size:14px;color:var(--ink);
+    text-transform:none;letter-spacing:0;font-weight:400;
+    cursor:pointer;
+  }
+  .radio-row input, .check-row input{accent-color:var(--blue-deep);}
+
+  .conditional{display:none;padding-left:2px;border-left:2px solid var(--gold);padding-left:14px;}
+  .conditional.show{display:block;}
+
+  .submit-btn{
+    justify-self:start;
+    margin-top:6px;
+    background:var(--red);
+    color:var(--paper);
+    border:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:15px 34px;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  .submit-btn:hover{background:var(--blue-deep);}
+
+  .note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    line-height:1.5;
+  }
+
+  footer{
+    max-width:980px;
+    margin:0 auto;
+    padding:30px 24px 60px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* success panel */
+  .success-overlay{
+    position:fixed;inset:0;
+    background:rgba(23,31,34,0.88);
+    display:none;
+    align-items:center;justify-content:center;
+    padding:24px;
+    z-index:50;
+  }
+  .success-overlay.show{display:flex;}
+  .success-box{
+    background:var(--paper);
+    max-width:420px;
+    width:100%;
+    padding:38px 32px;
+    text-align:center;
+  }
+  .success-box .check{
+    width:48px;height:48px;border-radius:50%;
+    background:var(--blue-deep);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 18px;font-size:22px;
+  }
+  .success-box h3{font-family:'Fraunces',serif;font-size:22px;margin:0 0 10px;}
+  .success-box p{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 22px;}
+  .wa-btn{
+    display:inline-block;
+    background:var(--red);color:var(--paper);
+    text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;letter-spacing:0.06em;text-transform:uppercase;
+    padding:13px 26px;
+    animation:blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.55;}}
+  .wa-note{font-size:11.5px;color:var(--red);margin-top:12px;font-weight:600;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Now Hiring · Remote</div>
+  <h1>Haitian Kreyòl<br><em>Transcription &amp; QA</em></h1>
+  <p class="lede">Dual-channel calls are split, segmented by voice activity, and handed to you as short clips. We need native and fluent Kreyòl speakers to label them valid or invalid and transcribe what's said — cleanly, consistently, exactly as spoken.</p>
+
+  <svg class="signal" viewBox="0 0 900 140" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="30" x2="900" y2="30" stroke="var(--line)" stroke-width="1"/>
+    <path id="rawWave" d="M0,30 Q30,10 60,30 T120,30 T180,30 T240,30 T300,30 T360,30 T420,30 T480,30 T540,30 T600,30 T660,30 T720,30 T780,30 T840,30 T900,30" fill="none" stroke="var(--ink)" stroke-width="2"/>
+    <g id="splitWaves" opacity="0">
+      <path d="M0,80 Q25,60 50,80 T100,80 T150,65 T200,80 T250,80 T300,55 T350,80 T400,80 T450,80 T500,60 T550,80 T600,80 T650,80 T700,70 T750,80 T800,80 T850,80 T900,80" fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+      <path d="M0,120 Q25,120 50,105 T100,120 T150,120 T200,100 T250,120 T300,120 T350,110 T400,120 T450,90 T500,120 T550,120 T600,105 T650,120 T700,120 T750,95 T800,120 T850,120 T900,120" fill="none" stroke="var(--red)" stroke-width="2.5"/>
+    </g>
+  </svg>
+  <div class="signal-caption">
+    <span class="mono" id="wave-label">dual-channel · raw</span>
+    <span class="mono">VAD segmentation →</span>
+  </div>
+</div>
+
+<section id="flow">
+  <div class="section-label">How a clip moves through the pipeline</div>
+  <h2>One file, one decision, one label</h2>
+  <div class="flow">
+    <div class="flow-step">
+      <span class="tag">01 — SPLIT</span>
+      <p>Dual-channel audio is separated into <b>single-channel</b> clips, one speaker role per clip.</p>
+    </div>
+    <div class="flow-step">
+      <span class="tag">02 — VAD</span>
+      <p>Clips are cut down to short segments using <b>Voice Activity Detection</b>.</p>
+    </div>
+    <div class="flow-step">
+      <span class="tag">03 — LABEL</span>
+      <p>You mark each clip <b>Valid</b> or <b>Invalid</b> — one bad segment invalidates the whole file.</p>
+    </div>
+    <div class="flow-step">
+      <span class="tag">04 — TRANSCRIBE / QA</span>
+      <p>Valid clips are transcribed <b>exactly as spoken</b>; QA checks the output line by line.</p>
+    </div>
+  </div>
+</section>
+
+<section id="role">
+  <div class="section-label">The Work</div>
+  <h2>Two passes over the same audio</h2>
+  <div class="role-card">
+    <div class="num">01</div>
+    <div>
+      <h3>Transcription</h3>
+      <p>Listen to short Kreyòl clips and write exactly what's said — no added or dropped words, fillers standardized (emmm/emm/ehm → one spelling), numbers written as words, punctuation kept standard. Format: <span class="mono" style="color:var(--gold)">[Timestamp] [Speaker] [Content]</span>, tab-delimited.</p>
+    </div>
+  </div>
+  <div class="role-card" style="margin-top:1px;">
+    <div class="num">02</div>
+    <div>
+      <h3>QA</h3>
+      <p>Review transcripts against the source audio for accuracy, formatting consistency, and correct handling of edge cases — stutters, cut-off words, letter-by-letter proper nouns, invalid-clip reasons.</p>
+    </div>
+  </div>
+</section>
+
+<section id="apply">
+  <div class="section-label">Apply</div>
+  <h2>Tell us who's applying</h2>
+
+  <div class="track-toggle">
+    <button type="button" id="btnIndividual" class="active">Individual</button>
+    <button type="button" id="btnVendor">Vendor / Agency</button>
+  </div>
+
+  <form id="hireForm">
+    <input type="hidden" id="track" name="track" value="Individual">
+
+    <div class="grid2">
+      <div class="field">
+        <label>Full name <span class="req">*</span></label>
+        <input type="text" name="fullName" required>
+      </div>
+      <div class="field" id="companyField" style="display:none;">
+        <label>Company / Agency name <span class="req">*</span></label>
+        <input type="text" name="companyName">
+      </div>
+      <div class="field">
+        <label>WhatsApp number <span class="req">*</span></label>
+        <input type="tel" name="whatsapp" required placeholder="+509 ...">
+      </div>
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" name="email" required>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label>Kreyòl proficiency <span class="req">*</span></label>
+        <select name="proficiency" required>
+          <option value="">Select</option>
+          <option>Native speaker</option>
+          <option>Fluent / near-native</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Country / city currently based in <span class="req">*</span></label>
+        <input type="text" name="location" required>
+      </div>
+    </div>
+
+    <div class="field" id="vendorCapacityField" style="display:none;">
+      <label>Number of transcribers/QA staff you can provide <span class="req">*</span></label>
+      <input type="number" name="vendorCapacity" id="vendorCapacityInput" min="15">
+      <p class="note" style="margin-top:8px;">Minimum 15 staff required to apply as a vendor.</p>
+    </div>
+
+    <div class="field">
+      <label>Role you're applying for <span class="req">*</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="role" value="Transcription" required> Transcription</label>
+        <label><input type="radio" name="role" value="QA" required> QA</label>
+        <label><input type="radio" name="role" value="Both" required> Both</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>PC / Laptop available for this work? <span class="req">*</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="hasPC" value="Yes" required> Yes</label>
+        <label><input type="radio" name="hasPC" value="No" required> No</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Previous transcription or QA experience? <span class="req">*</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="hasExp" value="Yes" required onclick="toggleExp(true)"> Yes</label>
+        <label><input type="radio" name="hasExp" value="No" required onclick="toggleExp(false)"> No</label>
+      </div>
+      <div class="conditional" id="expDetail" style="margin-top:12px;">
+        <textarea name="expDetail" placeholder="Briefly describe the project(s), platform, and duration"></textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Anything else we should know</label>
+      <textarea name="notes" placeholder="Optional"></textarea>
+    </div>
+
+    <p class="note">Pay rate for this project is being finalized and will be confirmed to shortlisted applicants before any work begins.</p>
+
+    <button type="submit" class="submit-btn">Submit application</button>
+  </form>
+</section>
+
+<footer>
+  <span>Haitian Kreyòl Transcription + QA</span>
+  <span>Applications reviewed on a rolling basis</span>
+</footer>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="check">✓</div>
+    <h3>Application received</h3>
+    <p>We'll review your details and reach out if you're shortlisted. Join the onboarding group below to get updates first.</p>
+    <a href="#" class="wa-btn" target="_blank">Join WhatsApp Group</a>
+    <div class="wa-note">Joining the group is mandatory for shortlisted applicants.</div>
+  </div>
+</div>
+
+<script>
+  const btnInd = document.getElementById('btnIndividual');
+  const btnVen = document.getElementById('btnVendor');
+  const trackInput = document.getElementById('track');
+  const companyField = document.getElementById('companyField');
+  const vendorCapacityField = document.getElementById('vendorCapacityField');
+  const vendorCapacityInput = document.getElementById('vendorCapacityInput');
+  const companyInput = document.querySelector('input[name="companyName"]');
+
+  vendorCapacityInput.addEventListener('input', () => {
+    if(vendorCapacityInput.value !== '' && Number(vendorCapacityInput.value) < 15){
+      vendorCapacityInput.setCustomValidity('Vendor applications need at least 15 staff.');
+    } else {
+      vendorCapacityInput.setCustomValidity('');
+    }
+  });
+
+  btnInd.addEventListener('click', () => {
+    btnInd.classList.add('active'); btnVen.classList.remove('active');
+    trackInput.value = 'Individual';
+    companyField.style.display = 'none';
+    vendorCapacityField.style.display = 'none';
+    companyInput.required = false;
+    vendorCapacityInput.required = false;
+    vendorCapacityInput.setCustomValidity('');
+  });
+  btnVen.addEventListener('click', () => {
+    btnVen.classList.add('active'); btnInd.classList.remove('active');
+    trackInput.value = 'Vendor';
+    companyField.style.display = 'block';
+    vendorCapacityField.style.display = 'block';
+    companyInput.required = true;
+    vendorCapacityInput.required = true;
+  });
+
+  function toggleExp(show){
+    const el = document.getElementById('expDetail');
+    if(show){ el.classList.add('show'); } else { el.classList.remove('show'); }
+  }
+
+  document.getElementById('hireForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    // TODO: wire to Google Apps Script endpoint for Sheet logging
+    document.getElementById('successOverlay').classList.add('show');
+  });
+
+  // hero waveform split animation
+  window.addEventListener('load', () => {
+    const raw = document.getElementById('rawWave');
+    const split = document.getElementById('splitWaves');
+    const label = document.getElementById('wave-label');
+    setTimeout(() => {
+      raw.style.transition = 'opacity 0.7s ease';
+      split.style.transition = 'opacity 0.7s ease';
+      raw.style.opacity = '0.15';
+      split.setAttribute('opacity','1');
+      label.textContent = 'single-channel · Assistant / User';
+    }, 1100);
+  });
+</script>
+
+</body>
+</html>
